@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+
 import BaseInput from '../../components/ui/BaseInput';
 import BaseButton from '../../components/ui/BaseButton';
+
+import { signIn } from '../../actions/user';
 
 import './signIn.scss';
 
@@ -8,14 +14,14 @@ class SignIn extends Component {
   constructor() {
     super();
     this.state = {
-      userName: '',
+      username: '',
       isError: false,
     };
   }
 
   checkValidation = () => {
-    const { userName } = this.state;
-    const isError = userName.length < 4 || userName.length > 16;
+    const { username } = this.state;
+    const isError = username.length < 4 || username.length > 16;
     this.setState({ isError });
     return isError;
   };
@@ -33,22 +39,32 @@ class SignIn extends Component {
     });
   };
 
-  logIn = () => {
+  logIn = async () => {
     const isError = this.checkValidation();
-    if (!isError) return;
+    if (isError) return;
+    const { username } = this.state;
+    const { onSignIn } = this.props;
+    const user = await axios.post('signin', { username });
+    onSignIn(user.data);
+    this.setDataToLocalStorage(user.data);
+  };
+
+  setDataToLocalStorage = user => {
+    localStorage.setItem('token', user.token);
+    localStorage.setItem('username', user.username);
   };
 
   render() {
-    const { userName, isError } = this.state;
+    const { username, isError } = this.state;
     return (
       <>
         <div className="signin-wrapper position-absolute min-vh-100 min-vw-100" />
         <div className=" min-vh-100 min-vw-100 d-flex justify-content-center align-items-center position-relative">
           <div className="signin-form w-25 d-flex justify-content-center align-items-center flex-column border border-dark px-4 py-3">
             <BaseInput
-              value={userName}
-              name="userName"
-              id="userName"
+              value={username}
+              name="username"
+              id="username"
               className="form-control m-2"
               label="Username"
               isError={isError}
@@ -70,4 +86,17 @@ class SignIn extends Component {
   }
 }
 
-export default SignIn;
+SignIn.propTypes = {
+  onSignIn: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onSignIn: data => dispatch(signIn(data)),
+  };
+};
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(SignIn);
