@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import axios from 'axios';
+
 import SignIn from './containers/SignIn';
+import NotFound from './containers/NotFound';
+
 import { signIn } from './actions/user';
 
 class App extends Component {
@@ -22,10 +25,18 @@ class App extends Component {
   };
 
   render() {
+    const { isAuthenticated } = this.props;
+
     return (
       <div className="position-relative">
         <Switch>
-          <Route exact path="/signin" component={SignIn} />
+          <Route exact path="/">
+            <Redirect to={isAuthenticated ? '/books' : '/signin'} />
+          </Route>
+          <Route exact path="/signin" component={SignIn}>
+            {isAuthenticated && <Redirect to="/books" />}
+          </Route>
+          <Route component={NotFound} />
         </Switch>
       </div>
     );
@@ -33,7 +44,12 @@ class App extends Component {
 }
 App.propTypes = {
   onSignIn: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
 };
+
+const mapStateToProps = state => ({
+  isAuthenticated: state.user.isAuthenticated,
+});
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -42,6 +58,6 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(App);
