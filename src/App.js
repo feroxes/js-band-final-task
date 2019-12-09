@@ -4,7 +4,9 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import axios from 'axios';
 
+import Header from './components/Header';
 import SignIn from './containers/SignIn';
+import Books from './containers/Books';
 import NotFound from './containers/NotFound';
 
 import { signIn } from './actions/user';
@@ -29,12 +31,16 @@ class App extends Component {
 
     return (
       <div className="position-relative">
+        {isAuthenticated && <Header />}
         <Switch>
           <Route exact path="/">
             <Redirect to={isAuthenticated ? '/books' : '/signin'} />
           </Route>
           <Route exact path="/signin" component={SignIn}>
             {isAuthenticated && <Redirect to="/books" />}
+          </Route>
+          <Route path="/books" component={Books}>
+            {!isAuthenticated && <Redirect to="/signin" />}
           </Route>
           <Route component={NotFound} />
         </Switch>
@@ -51,11 +57,9 @@ const mapStateToProps = state => ({
   isAuthenticated: state.user.isAuthenticated,
 });
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onSignIn: data => dispatch(signIn(data)),
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  onSignIn: data => dispatch(signIn(data)),
+});
 
 export default connect(
   mapStateToProps,
