@@ -7,19 +7,19 @@ import BookCard from './BookCard';
 
 import { saveBooksList } from '../../actions/books';
 
-class BookList extends Component {
+class BooksList extends Component {
   async componentDidMount() {
     const { onSaveBooksList } = this.props;
-    const bookLists = await axios.get('books');
-    onSaveBooksList(bookLists.data);
+    const booksLists = await axios.get('books');
+    onSaveBooksList(booksLists.data);
   }
 
   render() {
-    const { bookList } = this.props;
-    console.log('----->bookList<-----', bookList);
+    const { booksList } = this.props;
+    console.log('----->booksList<-----', booksList);
     return (
       <div className="d-flex flex-wrap justify-content-center">
-        {bookList.map(book => {
+        {booksList.map(book => {
           return <BookCard book={book} key={book.id} />;
         })}
       </div>
@@ -27,13 +27,13 @@ class BookList extends Component {
   }
 }
 
-BookList.propTypes = {
-  bookList: PropTypes.instanceOf(Array).isRequired,
+BooksList.propTypes = {
+  booksList: PropTypes.instanceOf(Array).isRequired,
   onSaveBooksList: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
-  bookList: state.books.bookList,
+  booksList: state.books.booksList,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -43,4 +43,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(BookList);
+)(BooksList);

@@ -1,12 +1,12 @@
 import React from 'react';
 import Menu from '../../components/Menu';
-import BookList from '../../components/BookList';
+import BooksList from '../../components/BooksList';
 
 function Books() {
   return (
     <div className="p-4">
       <Menu />
-      <BookList />
+      <BooksList />
     </div>
   );
 }

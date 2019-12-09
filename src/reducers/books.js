@@ -1,7 +1,7 @@
 import { SAVE_BOOKS_LIST } from '../actions/books';
 
 const initialState = {
-  bookList: [],
+  booksList: [],
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -9,7 +9,7 @@ export default (state = initialState, { type, payload }) => {
     case SAVE_BOOKS_LIST:
       return {
         ...state,
-        bookList: [...payload],
+        booksList: [...payload],
       };
     default:
       return state;
