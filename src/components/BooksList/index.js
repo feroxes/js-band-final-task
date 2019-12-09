@@ -14,12 +14,24 @@ class BooksList extends Component {
     onSaveBooksList(booksLists.data);
   }
 
+  makeSearch = list => {
+    const { filters } = this.props;
+    const { search } = filters;
+    return list.filter(book => book.title.toLowerCase().includes(search.toLowerCase()));
+  };
+
+  makeBooksList = () => {
+    const { booksList, filters } = this.props;
+    const { search } = filters;
+    let result = booksList;
+    if (search) result = this.makeSearch(result);
+    return result;
+  };
+
   render() {
-    const { booksList } = this.props;
-    console.log('----->booksList<-----', booksList);
     return (
       <div className="d-flex flex-wrap justify-content-center">
-        {booksList.map(book => {
+        {this.makeBooksList().map(book => {
           return <BookCard book={book} key={book.id} />;
         })}
       </div>
@@ -30,10 +42,12 @@ class BooksList extends Component {
 BooksList.propTypes = {
   booksList: PropTypes.instanceOf(Array).isRequired,
   onSaveBooksList: PropTypes.func.isRequired,
+  filters: PropTypes.instanceOf(Object).isRequired,
 };
 
 const mapStateToProps = state => ({
   booksList: state.books.booksList,
+  filters: state.books.filters,
 });
 
 const mapDispatchToProps = dispatch => ({
