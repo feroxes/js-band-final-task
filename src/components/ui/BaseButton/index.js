@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function BaseButton({ name, text, handleClick, className }) {
+function BaseButton({ name, text, handleClick, className, style, type }) {
   return (
     <>
-      <button type="button" name={name} onClick={handleClick} className={className}>
+      {/* eslint-disable-next-line react/button-has-type */}
+      <button type={type} name={name} onClick={handleClick} className={className} style={style}>
         {text}
       </button>
     </>
@@ -16,10 +17,14 @@ BaseButton.propTypes = {
   text: PropTypes.string.isRequired,
   handleClick: PropTypes.func.isRequired,
   className: PropTypes.string,
+  type: PropTypes.string,
+  style: PropTypes.instanceOf(Object),
 };
 
 BaseButton.defaultProps = {
   className: '',
+  style: {},
+  type: 'button',
 };
 
 export default BaseButton;
