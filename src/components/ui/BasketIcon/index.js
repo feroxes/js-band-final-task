@@ -26,7 +26,7 @@ BasketIcon.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  countOfProducts: state.basket.countOfProducts,
+  countOfProducts: state.purchaseCard.countOfProducts,
 });
 
 export default connect(
