@@ -13,6 +13,9 @@ function BaseInput({
   isError,
   errorText,
   handleKeyUp,
+  min,
+  max,
+  handleBlur,
 }) {
   return (
     <>
@@ -26,7 +29,10 @@ function BaseInput({
           value={value}
           onChange={e => handleChanges(e)}
           onKeyUp={e => handleKeyUp(e)}
+          onBlur={e => handleBlur(e)}
           placeholder={placeholder}
+          min={min}
+          max={max}
         />
         {isError ? (
           <span className="text-danger font-weight-normal" style={{ fontSize: '11px' }}>
@@ -50,6 +56,9 @@ BaseInput.propTypes = {
   handleKeyUp: PropTypes.func,
   isError: PropTypes.bool,
   errorText: PropTypes.string,
+  min: PropTypes.string,
+  max: PropTypes.string,
+  handleBlur: PropTypes.func,
 };
 
 BaseInput.defaultProps = {
@@ -60,6 +69,9 @@ BaseInput.defaultProps = {
   isError: false,
   errorText: '',
   handleKeyUp: () => {},
+  handleBlur: () => {},
+  min: '0',
+  max: '',
 };
 
 export default BaseInput;

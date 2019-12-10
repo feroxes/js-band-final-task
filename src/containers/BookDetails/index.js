@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import BookDetailsInfo from '../../components/BookDetailsInfo';
+import BookPurchase from '../../components/BookPurchase';
 
 class BookDetails extends Component {
   constructor() {
@@ -22,7 +23,12 @@ class BookDetails extends Component {
     const { currentBook } = this.state;
     return (
       <div className="d-flex w-100 p-5">
-        {currentBook && <BookDetailsInfo currentBook={currentBook} />}
+        {currentBook && (
+          <>
+            <BookDetailsInfo currentBook={currentBook} />
+            <BookPurchase currentBook={currentBook} />
+          </>
+        )}
       </div>
     );
   }
