@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import BaseButton from '../../ui/BaseButton';
@@ -14,12 +15,14 @@ function BookCard({ book }) {
       <p className="align-self-start">{book.author}</p>
       <div className="w-100 d-flex justify-content-between align-items-center mt-5">
         <p className="font-weight-bold">{book.price} $</p>
-        <BaseButton
-          handleClick={() => {}}
-          text="View Details"
-          name="viewDetails"
-          className="border rounded p-2 bg-light"
-        />
+        <Link to={`/books/${book.id}`}>
+          <BaseButton
+            handleClick={() => {}}
+            text="View Details"
+            name="viewDetails"
+            className="border rounded p-2 bg-light"
+          />
+        </Link>
       </div>
     </div>
   );

@@ -26,7 +26,7 @@ function Menu({ filters, onSetFilter }) {
       </div>
       <div className="w-50">
         <BaseSelect
-          value={filters.price.name}
+          value={filters.price}
           optionList={['All', '0 < price < 15', '15 < price < 30', 'price > 30']}
           name="price"
           handleChanges={handleChanges}
