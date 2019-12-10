@@ -7,6 +7,7 @@ import axios from 'axios';
 import Header from './components/Header';
 import SignIn from './containers/SignIn';
 import Books from './containers/Books';
+import BookDetails from './containers/BookDetails';
 import NotFound from './containers/NotFound';
 
 import { signIn } from './actions/user';
@@ -39,7 +40,10 @@ class App extends Component {
           <Route exact path="/signin" component={SignIn}>
             {isAuthenticated && <Redirect to="/books" />}
           </Route>
-          <Route path="/books" component={Books}>
+          <Route path="/books" exact component={Books}>
+            {!isAuthenticated && <Redirect to="/signin" />}
+          </Route>
+          <Route path="/books/:id" component={BookDetails}>
             {!isAuthenticated && <Redirect to="/signin" />}
           </Route>
           <Route component={NotFound} />
