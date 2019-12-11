@@ -1,20 +1,30 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 
 import BaseButton from '../../components/ui/BaseButton';
 import PurchaseCardEmptyCard from '../../components/PurchaseCard/PurchaseCardEmptyCard';
 import PurchaseCardList from '../../components/PurchaseCard/PurchaseCardList';
+import Modal from '../../components/ui/Modal';
 
 import { clearCard } from '../../actions/purchaseCard';
 
 class PurchaseCard extends Component {
+  constructor() {
+    super();
+    this.state = {
+      isModalShown: false,
+    };
+  }
+
   handleClick = async () => {
     const { onClearCard } = this.props;
     const books = this.formatDataBeforeSend();
     await axios.post('purchase', { books });
     onClearCard();
+    this.toggleModal();
   };
 
   formatDataBeforeSend = () => {
@@ -29,7 +39,16 @@ class PurchaseCard extends Component {
     return result;
   };
 
+  toggleModal = () => {
+    this.setState(state => {
+      return {
+        isModalShown: !state.isModalShown,
+      };
+    });
+  };
+
   render() {
+    const { isModalShown } = this.state;
     const { countOfProducts, basket } = this.props;
     return (
       <div>
@@ -46,6 +65,19 @@ class PurchaseCard extends Component {
           </div>
         ) : (
           <PurchaseCardEmptyCard />
+        )}
+        {isModalShown && (
+          <Modal modalTitle="Thank you for your order!">
+            <p className="text-center my-4">The order was successfully sent.</p>
+            <Link to="/books">
+              <BaseButton
+                handleClick={this.toggleModal}
+                text="Continue shopping"
+                name="continueShopping"
+                className="border rounded p-2 text-success font-weight-bold"
+              />
+            </Link>
+          </Modal>
         )}
       </div>
     );
