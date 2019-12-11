@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import BaseButton from '../../ui/BaseButton';
 import BasketItem from './BasketItem';
 
 function PurchaseCardList({ basket }) {
@@ -14,14 +13,7 @@ function PurchaseCardList({ basket }) {
   }
 
   return (
-    <div className="d-flex flex-column mt-3 px-5">
-      <BaseButton
-        handleClick={() => {}}
-        text="Purchase"
-        name="purchase"
-        className="border rounded bg-success p-2 align-self-end mb-3"
-        style={{ width: '150px' }}
-      />
+    <div className="d-flex flex-column">
       {basket.map(basketItem => (
         <BasketItem basketItem={basketItem} key={basketItem.item.id} />
       ))}
