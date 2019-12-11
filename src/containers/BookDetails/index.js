@@ -13,6 +13,7 @@ class BookDetails extends Component {
     this.state = {
       currentBook: null,
       isModalShown: false,
+      count: '0',
     };
   }
 
@@ -30,17 +31,27 @@ class BookDetails extends Component {
     });
   };
 
+  setCountOfBooks = count => {
+    this.setState({ count });
+  };
+
   render() {
-    const { currentBook, isModalShown } = this.state;
+    const { currentBook, isModalShown, count } = this.state;
     return (
       <div className="d-flex w-100 p-5">
         {currentBook && (
           <>
             <BookDetailsInfo currentBook={currentBook} />
-            <BookPurchase currentBook={currentBook} toggleModal={this.toggleModal} />
+            <BookPurchase
+              currentBook={currentBook}
+              toggleModal={this.toggleModal}
+              setCountOfBooks={this.setCountOfBooks}
+            />
             {isModalShown && (
               <Modal modalTitle="Thank you for your order!">
-                <p className="text-center my-4">The book has been successfully added to the cart</p>
+                <p className="text-center my-4">
+                  The book{Number(count) > 1 ? 's' : ''} has been successfully added to the cart
+                </p>
                 <BaseButton
                   handleClick={this.toggleModal}
                   text="Continue shopping"

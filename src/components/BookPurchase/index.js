@@ -46,10 +46,11 @@ class BookPurchase extends Component {
   };
 
   handleClick = () => {
-    const { onAddItemToCard, currentBook, toggleModal } = this.props;
+    const { onAddItemToCard, currentBook, toggleModal, setCountOfBooks } = this.props;
     const { count } = this.state;
     if (count === '0') return;
     onAddItemToCard({ item: currentBook, count });
+    setCountOfBooks(count);
     this.clearState();
     toggleModal();
   };
@@ -104,6 +105,7 @@ BookPurchase.propTypes = {
   basket: PropTypes.instanceOf(Object).isRequired,
   onAddItemToCard: PropTypes.func.isRequired,
   toggleModal: PropTypes.func.isRequired,
+  setCountOfBooks: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
