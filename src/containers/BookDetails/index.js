@@ -17,10 +17,19 @@ class BookDetails extends Component {
   }
 
   componentDidMount() {
+    this.setCurrentBook();
+  }
+
+  componentDidUpdate(prevProps) {
+    const { match } = this.props;
+    if (prevProps.match.params.id !== match.params.id) this.setCurrentBook();
+  }
+
+  setCurrentBook = () => {
     const { match, booksList } = this.props;
     const currentBook = booksList.filter(book => book.id === match.params.id);
     this.setState({ currentBook: { ...currentBook[0] } });
-  }
+  };
 
   toggleModal = () => {
     this.setState(state => {
