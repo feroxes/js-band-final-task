@@ -10,6 +10,8 @@ import Books from './containers/Books';
 import BookDetails from './containers/BookDetails';
 import PurchaseCard from './containers/PurchaseCard';
 import NotFound from './containers/NotFound';
+import Spinner from './components/Spinner';
+
 import { signIn, sendRequest } from './actions/user';
 
 import PublicRoute from './routes/PublicRoute';
@@ -37,14 +39,18 @@ class App extends Component {
     return (
       <div className="position-relative">
         {isAuthenticated && <Header />}
-        <Switch>
-          <PrivateRoute component={{}} path="/" exact />
-          <PublicRoute component={SignIn} path="/signin" exact restricted />
-          <PrivateRoute component={Books} path="/books" exact />
-          <PrivateRoute component={BookDetails} path="/books/:id" exact />
-          <PrivateRoute component={PurchaseCard} path="/card" exact />
-          <PublicRoute component={NotFound} restricted={false} />
-        </Switch>
+        {!isLoading ? (
+          <Switch>
+            <PrivateRoute component={{}} path="/" exact />
+            <PublicRoute component={SignIn} path="/signin" exact restricted />
+            <PrivateRoute component={Books} path="/books" exact />
+            <PrivateRoute component={BookDetails} path="/books/:id" exact />
+            <PrivateRoute component={PurchaseCard} path="/card" exact />
+            <PublicRoute component={NotFound} restricted={false} />
+          </Switch>
+        ) : (
+          <Spinner />
+        )}
       </div>
     );
   }
