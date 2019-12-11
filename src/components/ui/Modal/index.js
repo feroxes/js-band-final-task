@@ -5,7 +5,7 @@ import './Modal.scss';
 function Modal({ modalTitle, children }) {
   return (
     <div className="modal-wrapper d-flex vw-100 vh-100 position-fixed overflow-auto justify-content-center align-items-center">
-      <div className="base-modal w-25 rounded p-3">
+      <div className="base-modal d-flex flex-column align-items-center justify-content-center rounded p-4">
         <h2 className="modal-title font-weight-bold text-center">{modalTitle}</h2>
         {children}
       </div>

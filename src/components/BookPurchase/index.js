@@ -28,10 +28,19 @@ class BookPurchase extends Component {
     this.setState({ isWarningShown: false });
   };
 
+  clearState = () => {
+    this.setState({
+      count: '0',
+    });
+  };
+
   handleClick = () => {
-    const { onAddItemToCard, currentBook } = this.props;
+    const { onAddItemToCard, currentBook, toggleModal } = this.props;
     const { count } = this.state;
+    if (count === '0') return;
     onAddItemToCard({ item: currentBook, count });
+    this.clearState();
+    toggleModal();
   };
 
   render() {
@@ -82,6 +91,7 @@ class BookPurchase extends Component {
 BookPurchase.propTypes = {
   currentBook: PropTypes.instanceOf(Object).isRequired,
   onAddItemToCard: PropTypes.func.isRequired,
+  toggleModal: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = dispatch => ({
