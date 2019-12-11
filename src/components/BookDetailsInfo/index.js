@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 function BookDetailsInfo({ currentBook }) {
-  console.log('----->currentBook<-----', currentBook);
   return (
     <div className="w-75 h-100">
       <div className="d-flex h-100">

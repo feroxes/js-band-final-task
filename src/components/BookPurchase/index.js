@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import BaseInput from '../ui/BaseInput';
 import BaseButton from '../ui/BaseButton';
+
+import { addItemToCard } from '../../actions/purchaseCard';
 
 class BookPurchase extends Component {
   constructor() {
@@ -23,6 +26,12 @@ class BookPurchase extends Component {
 
   handleBlur = () => {
     this.setState({ isWarningShown: false });
+  };
+
+  handleClick = () => {
+    const { onAddItemToCard, currentBook } = this.props;
+    const { count } = this.state;
+    onAddItemToCard({ item: currentBook, count });
   };
 
   render() {
@@ -59,7 +68,7 @@ class BookPurchase extends Component {
         </div>
         <div className="d-flex justify-content-end">
           <BaseButton
-            handleClick={() => {}}
+            handleClick={this.handleClick}
             text="Add to card"
             name="addToCard"
             className="border rounded p-2 bg-light"
@@ -72,6 +81,14 @@ class BookPurchase extends Component {
 
 BookPurchase.propTypes = {
   currentBook: PropTypes.instanceOf(Object).isRequired,
+  onAddItemToCard: PropTypes.func.isRequired,
 };
 
-export default BookPurchase;
+const mapDispatchToProps = dispatch => ({
+  onAddItemToCard: data => dispatch(addItemToCard(data)),
+});
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(BookPurchase);

@@ -8,6 +8,7 @@ import Header from './components/Header';
 import SignIn from './containers/SignIn';
 import Books from './containers/Books';
 import BookDetails from './containers/BookDetails';
+import PurchaseCard from './containers/PurchaseCard';
 import NotFound from './containers/NotFound';
 
 import { signIn } from './actions/user';
@@ -44,6 +45,9 @@ class App extends Component {
             {!isAuthenticated && <Redirect to="/signin" />}
           </Route>
           <Route path="/books/:id" component={BookDetails}>
+            {!isAuthenticated && <Redirect to="/signin" />}
+          </Route>
+          <Route path="/card" component={PurchaseCard}>
             {!isAuthenticated && <Redirect to="/signin" />}
           </Route>
           <Route component={NotFound} />

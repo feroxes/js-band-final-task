@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import BasketIcon from '../ui/BasketIcon';
@@ -24,9 +25,13 @@ class Header extends Component {
     const { avatar, username } = user;
     return (
       <div className="d-flex justify-content-between align-items-center p-4 border-bottom">
-        <div>JS Band store / Yarik Harmash</div>
+        <div>
+          <Link to="/books">JS Band store</Link> / Yarik Harmash
+        </div>
         <div className="d-flex align-items-center">
-          <BasketIcon />
+          <Link to="/card">
+            <BasketIcon />
+          </Link>
           <BaseButton
             handleClick={this.logOut}
             text="Sign out"
