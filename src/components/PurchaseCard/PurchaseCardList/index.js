@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import BaseButton from '../../ui/BaseButton';
+import BasketItem from './BasketItem';
 
-function PurchaseCardItems({ basket }) {
+function PurchaseCardList({ basket }) {
   function countTotalPrice() {
     let price = 0;
 
@@ -21,24 +22,16 @@ function PurchaseCardItems({ basket }) {
         className="border rounded bg-success p-2 align-self-end mb-3"
         style={{ width: '150px' }}
       />
-      {basket.map(basketItem => {
-        return (
-          <div className="d-flex justify-content-between align-items-center p-3 border rounded my-1">
-            <div className="d-flex align-items-center">
-              <h3 className="mr-5 font-weight-bold">{basketItem.item.title}</h3>
-              <p>{basketItem.count} items</p>
-            </div>
-            <p>Total price: {basketItem.item.price * basketItem.count} $</p>
-          </div>
-        );
-      })}
+      {basket.map(basketItem => (
+        <BasketItem basketItem={basketItem} key={basketItem.item.id} />
+      ))}
       <p className="align-self-end font-weight-bold pr-3 my-3">Total price: {countTotalPrice()}$</p>
     </div>
   );
 }
 
-PurchaseCardItems.propTypes = {
+PurchaseCardList.propTypes = {
   basket: PropTypes.instanceOf(Object).isRequired,
 };
 
-export default PurchaseCardItems;
+export default PurchaseCardList;

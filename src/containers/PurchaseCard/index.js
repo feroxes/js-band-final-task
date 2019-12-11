@@ -3,14 +3,14 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import PurchaseCardEmptyCard from '../../components/PurchaseCard/PurchaseCardEmptyCard';
-import PurchaseCardItems from '../../components/PurchaseCard/PurchaseCardItems';
+import PurchaseCardList from '../../components/PurchaseCard/PurchaseCardList';
 
 class PurchaseCard extends Component {
   render() {
     const { countOfProducts, basket } = this.props;
     return (
       <div>
-        {countOfProducts ? <PurchaseCardItems basket={basket} /> : <PurchaseCardEmptyCard />}
+        {countOfProducts ? <PurchaseCardList basket={basket} /> : <PurchaseCardEmptyCard />}
       </div>
     );
   }
