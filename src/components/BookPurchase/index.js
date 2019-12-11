@@ -15,12 +15,23 @@ class BookPurchase extends Component {
     };
   }
 
+  checkTheNumberOfAvailableBook = () => {
+    const { basket, currentBook } = this.props;
+    let result = currentBook.count;
+    if (!basket.length) return result;
+    basket.forEach(item => {
+      if (item.item.id === currentBook.id) {
+        result -= item.count;
+      }
+    });
+    return result;
+  };
+
   handleChanges = e => {
-    const { currentBook } = this.props;
     const { name, value } = e.target;
 
-    if (value > currentBook.count)
-      this.setState({ [name]: String(currentBook.count), isWarningShown: true });
+    if (value > this.checkTheNumberOfAvailableBook())
+      this.setState({ [name]: String(this.checkTheNumberOfAvailableBook()), isWarningShown: true });
     else this.setState({ [name]: value, isWarningShown: false });
   };
 
@@ -61,7 +72,7 @@ class BookPurchase extends Component {
               handleBlur={this.handleBlur}
               id="count"
               type="number"
-              max={String(currentBook.count)}
+              max={String(this.checkTheNumberOfAvailableBook())}
             />
           </div>
         </div>
@@ -69,7 +80,7 @@ class BookPurchase extends Component {
           className={`w-100 text-warning text-right ${isWarningShown ? 'd-flex' : 'd-none'}`}
           style={{ fontSize: '12px' }}
         >
-          Sorry! There are only {currentBook.count} books available :(
+          Sorry! There are only {this.checkTheNumberOfAvailableBook()} books available :(
         </p>
         <div className="d-flex justify-content-between mb-2">
           <p>Total Price</p>
@@ -90,15 +101,20 @@ class BookPurchase extends Component {
 
 BookPurchase.propTypes = {
   currentBook: PropTypes.instanceOf(Object).isRequired,
+  basket: PropTypes.instanceOf(Object).isRequired,
   onAddItemToCard: PropTypes.func.isRequired,
   toggleModal: PropTypes.func.isRequired,
 };
+
+const mapStateToProps = state => ({
+  basket: state.purchaseCard.basket,
+});
 
 const mapDispatchToProps = dispatch => ({
   onAddItemToCard: data => dispatch(addItemToCard(data)),
 });
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(BookPurchase);
