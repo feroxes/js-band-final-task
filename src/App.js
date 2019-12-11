@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import axios from 'axios';
 
@@ -10,8 +10,10 @@ import Books from './containers/Books';
 import BookDetails from './containers/BookDetails';
 import PurchaseCard from './containers/PurchaseCard';
 import NotFound from './containers/NotFound';
+import { signIn, sendRequest } from './actions/user';
 
-import { signIn } from './actions/user';
+import PublicRoute from './routes/PublicRoute';
+import PrivateRoute from './routes/PrivateRoute';
 
 class App extends Component {
   componentDidMount() {
@@ -23,34 +25,25 @@ class App extends Component {
   }
 
   getProfile = async username => {
-    const { onSignIn } = this.props;
+    const { onSignIn, onSendRequest } = this.props;
+    onSendRequest();
     const user = await axios.post('signin', { username });
     onSignIn(user.data);
   };
 
   render() {
-    const { isAuthenticated } = this.props;
+    const { isAuthenticated, isLoading } = this.props;
 
     return (
       <div className="position-relative">
         {isAuthenticated && <Header />}
         <Switch>
-          <Route exact path="/">
-            <Redirect to={isAuthenticated ? '/books' : '/signin'} />
-          </Route>
-          <Route exact path="/signin" component={SignIn}>
-            {isAuthenticated && <Redirect to="/books" />}
-          </Route>
-          <Route path="/books" exact component={Books}>
-            {!isAuthenticated && <Redirect to="/signin" />}
-          </Route>
-          <Route path="/books/:id" component={BookDetails}>
-            {!isAuthenticated && <Redirect to="/signin" />}
-          </Route>
-          <Route path="/card" component={PurchaseCard}>
-            {!isAuthenticated && <Redirect to="/signin" />}
-          </Route>
-          <Route component={NotFound} />
+          <PrivateRoute component={{}} path="/" exact />
+          <PublicRoute component={SignIn} path="/signin" exact restricted />
+          <PrivateRoute component={Books} path="/books" exact />
+          <PrivateRoute component={BookDetails} path="/books/:id" exact />
+          <PrivateRoute component={PurchaseCard} path="/card" exact />
+          <PublicRoute component={NotFound} restricted={false} />
         </Switch>
       </div>
     );
@@ -59,14 +52,18 @@ class App extends Component {
 App.propTypes = {
   onSignIn: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  onSendRequest: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
   isAuthenticated: state.user.isAuthenticated,
+  isLoading: state.user.isLoading,
 });
 
 const mapDispatchToProps = dispatch => ({
   onSignIn: data => dispatch(signIn(data)),
+  onSendRequest: () => dispatch(sendRequest()),
 });
 
 export default connect(
