@@ -1,4 +1,4 @@
-import { SEND_REQUEST, SIGN_IN, SIGN_OUT } from '../actions/user';
+import { SET_LOADING, SIGN_IN, SIGN_OUT } from '../actions/user';
 
 const initialState = {
   username: '',
@@ -9,10 +9,10 @@ const initialState = {
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {
-    case SEND_REQUEST:
+    case SET_LOADING:
       return {
         ...state,
-        isLoading: true,
+        isLoading: payload,
       };
     case SIGN_IN:
       return {
