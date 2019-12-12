@@ -6,6 +6,7 @@ import axios from 'axios';
 import BookCard from './BookCard';
 
 import { saveBooksList } from '../../actions/books';
+import { priceFilter } from '../Menu/priceFilter';
 
 class BooksList extends Component {
   async componentDidMount() {
@@ -20,11 +21,20 @@ class BooksList extends Component {
     return list.filter(book => book.title.toLowerCase().includes(search.toLowerCase()));
   };
 
+  makeFilter = list => {
+    const { filters } = this.props;
+    const { price } = filters;
+    if (price.toLowerCase() === 'all') return list;
+    const filterParams = priceFilter.find(item => item.name === price);
+    return list.filter(book => book.price >= filterParams.from && book.price <= filterParams.to);
+  };
+
   makeBooksList = () => {
     const { booksList, filters } = this.props;
-    const { search } = filters;
+    const { search, price } = filters;
     let result = booksList;
     if (search) result = this.makeSearch(result);
+    if (price) result = this.makeFilter(result);
     return result;
   };
 

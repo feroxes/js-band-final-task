@@ -6,11 +6,16 @@ import BaseInput from '../ui/BaseInput';
 import BaseSelect from '../ui/BaseSelect';
 
 import { setFilter } from '../../actions/books';
+import { priceFilter } from './priceFilter';
 
 function Menu({ filters, onSetFilter }) {
   function handleChanges(e) {
     const { name, value } = e.target;
     onSetFilter({ name, value });
+  }
+
+  function makeOptionList() {
+    return priceFilter.map(item => item.name);
   }
 
   return (
@@ -27,7 +32,7 @@ function Menu({ filters, onSetFilter }) {
       <div className="w-50">
         <BaseSelect
           value={filters.price}
-          optionList={['All', '0 < price < 15', '15 < price < 30', 'price > 30']}
+          optionList={makeOptionList()}
           name="price"
           handleChanges={handleChanges}
         />
