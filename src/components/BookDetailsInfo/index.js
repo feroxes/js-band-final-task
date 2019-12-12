@@ -22,7 +22,7 @@ function BookDetailsInfo({ currentBook }) {
           </p>
           <p className="m-2">
             <span className="font-weight-bold">Tags: </span>
-            {currentBook.tags.map(tag => `${tag}; `)}
+            {currentBook.tags && currentBook.tags.map(tag => `${tag}; `)}
           </p>
         </div>
       </div>

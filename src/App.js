@@ -58,8 +58,12 @@ class App extends Component {
 App.propTypes = {
   onSignIn: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool.isRequired,
-  isLoading: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool,
   onSendRequest: PropTypes.func.isRequired,
+};
+
+App.defaultProps = {
+  isLoading: null,
 };
 
 const mapStateToProps = state => ({

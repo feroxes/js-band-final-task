@@ -4,7 +4,7 @@ const initialState = {
   username: '',
   avatar: '',
   isAuthenticated: false,
-  isLoading: false,
+  isLoading: null,
 };
 
 export default (state = initialState, { type, payload }) => {

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 
 import BookDetailsInfo from '../../components/BookDetailsInfo';
 import BookPurchase from '../../components/BookPurchase';
@@ -17,18 +18,31 @@ class BookDetails extends Component {
   }
 
   componentDidMount() {
-    this.setCurrentBook();
+    const { booksList } = this.props;
+    if (!booksList.length) this.getCurrentBook();
+    else this.setCurrentBook();
   }
 
   componentDidUpdate(prevProps) {
-    const { match } = this.props;
-    if (prevProps.match.params.id !== match.params.id) this.setCurrentBook();
+    const { match, booksList } = this.props;
+    const { currentBook } = this.state;
+    if (!booksList.length && !currentBook) this.getCurrentBook();
+    else if (prevProps.match.params.id !== match.params.id) this.setCurrentBook();
   }
+
+  getCurrentBook = async () => {
+    const { match } = this.props;
+    const currentBook = await axios.get(`books/${match.params.id}`);
+    this.setState({ currentBook: currentBook.data });
+  };
 
   setCurrentBook = () => {
     const { match, booksList } = this.props;
-    const currentBook = booksList.filter(book => book.id === match.params.id);
-    this.setState({ currentBook: { ...currentBook[0] } });
+    if (!booksList.length) this.getCurrentBook();
+    else {
+      const currentBook = booksList.filter(book => book.id === match.params.id);
+      this.setState({ currentBook: { ...currentBook[0] } });
+    }
   };
 
   toggleModal = () => {
