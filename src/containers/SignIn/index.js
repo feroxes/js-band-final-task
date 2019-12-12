@@ -45,6 +45,7 @@ class SignIn extends Component {
     const { username } = this.state;
     const { onSignIn } = this.props;
     const user = await axios.post('signin', { username });
+    axios.defaults.headers.common.Authorization = `Bearer ${user.data.token}`;
     onSignIn(user.data);
     this.setDataToLocalStorage(user.data);
   };
