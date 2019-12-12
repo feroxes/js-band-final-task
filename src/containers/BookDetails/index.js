@@ -32,15 +32,21 @@ class BookDetails extends Component {
 
   getCurrentBook = async () => {
     const { match } = this.props;
-    const currentBook = await axios.get(`books/${match.params.id}`);
-    this.setState({ currentBook: currentBook.data });
+    try {
+      const currentBook = await axios.get(`books/${match.params.id}`);
+      this.setState({ currentBook: currentBook.data });
+    } catch (e) {
+      const { history } = this.props;
+      history.push('/not-found');
+    }
   };
 
   setCurrentBook = () => {
-    const { match, booksList } = this.props;
+    const { match, booksList, history } = this.props;
     if (!booksList.length) this.getCurrentBook();
     else {
       const currentBook = booksList.filter(book => book.id === match.params.id);
+      if (!currentBook.length) history.push('/not-found');
       this.setState({ currentBook: { ...currentBook[0] } });
     }
   };
@@ -82,6 +88,7 @@ class BookDetails extends Component {
 BookDetails.propTypes = {
   booksList: PropTypes.instanceOf(Array).isRequired,
   match: PropTypes.instanceOf(Object).isRequired,
+  history: PropTypes.instanceOf(Object).isRequired,
 };
 
 const mapStateToProps = state => ({

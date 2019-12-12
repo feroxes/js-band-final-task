@@ -22,9 +22,13 @@ class PurchaseCard extends Component {
   handleClick = async () => {
     const { onClearCard } = this.props;
     const books = this.formatDataBeforeSend();
-    await axios.post('purchase', { books });
-    onClearCard();
-    this.toggleModal();
+    try {
+      await axios.post('purchase', { books });
+      onClearCard();
+      this.toggleModal();
+    } catch (e) {
+      console.error(`${e.name}: ${e.message}`);
+    }
   };
 
   formatDataBeforeSend = () => {

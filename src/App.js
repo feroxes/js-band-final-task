@@ -30,8 +30,12 @@ class App extends Component {
   getProfile = async username => {
     const { onSignIn, onSetLoading } = this.props;
     onSetLoading(true);
-    const user = await axios.post('signin', { username });
-    onSignIn(user.data);
+    try {
+      const user = await axios.post('signin', { username });
+      onSignIn(user.data);
+    } catch (e) {
+      console.error(`${e.name}: ${e.message}`);
+    }
   };
 
   render() {
