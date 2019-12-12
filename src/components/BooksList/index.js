@@ -11,8 +11,12 @@ import { priceFilter } from '../Menu/priceFilter';
 class BooksList extends Component {
   async componentDidMount() {
     const { onSaveBooksList } = this.props;
-    const booksLists = await axios.get('books');
-    onSaveBooksList(booksLists.data);
+    try {
+      const booksLists = await axios.get('books');
+      onSaveBooksList(booksLists.data);
+    } catch (e) {
+      console.error(`${e.name}: ${e.message}`);
+    }
   }
 
   makeSearch = list => {
