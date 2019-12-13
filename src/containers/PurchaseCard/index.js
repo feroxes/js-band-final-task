@@ -40,7 +40,6 @@ class PurchaseCard extends Component {
     const { basket } = this.props;
     const result = [];
     basket.forEach(item => {
-      // eslint-disable-next-line no-plusplus
       for (let i = 0; i < item.count; i++) {
         result.push(item.item.id);
       }
