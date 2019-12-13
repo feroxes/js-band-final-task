@@ -29,7 +29,4 @@ const mapStateToProps = state => ({
   countOfProducts: state.purchaseCard.countOfProducts,
 });
 
-export default connect(
-  mapStateToProps,
-  null
-)(BasketIcon);
+export default connect(mapStateToProps, null)(BasketIcon);
