@@ -75,7 +75,4 @@ const mapDispatchToProps = dispatch => ({
   onSaveBooksList: data => dispatch(saveBooksList(data)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(BooksList);
+export default connect(mapStateToProps, mapDispatchToProps)(BooksList);
