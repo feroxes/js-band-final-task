@@ -8,6 +8,7 @@ import BookPurchase from '../../components/BookPurchase';
 import Modal from '../../components/ui/Modal';
 import BaseButton from '../../components/ui/BaseButton';
 import { clearLocalStorage } from '../../helpers';
+import {Link} from "react-router-dom";
 
 class BookDetails extends Component {
   constructor() {
@@ -88,11 +89,19 @@ class BookDetails extends Component {
                 closeModal={this.closeModal}
               >
                 <p className="text-center my-4">The book has been successfully added to the cart</p>
+                <Link to="/card">
+                  <BaseButton
+                    handleClick={this.toggleModal}
+                    text="Checkout"
+                    name="checkout"
+                    className="border rounded p-2 text-success font-weight-bold mb-2"
+                  />
+                </Link>
                 <BaseButton
                   handleClick={this.toggleModal}
                   text="Continue shopping"
                   name="continueShopping"
-                  className="border rounded p-2 text-success font-weight-bold"
+                  className="border rounded p-2 text-warning font-weight-bold"
                 />
               </Modal>
             )}
