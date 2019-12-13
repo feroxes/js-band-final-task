@@ -37,7 +37,14 @@ module.exports = {
                 "singleQuote": true,
                 "printWidth": 100
             }
-        ]
+        ],
+        "no-console": 0,
+        "global-require": 0,
+        "react/jsx-props-no-spreading": 0,
+        "jsx-a11y/no-static-element-interactions": 0,
+        "jsx-a11y/click-events-have-key-events": 0,
+        "jsx-a11y/no-noninteractive-tabindex": 0,
+        "no-shadow": 0,
     },
     "plugins": ["prettier"]
 };

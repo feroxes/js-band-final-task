@@ -6,7 +6,7 @@ import BaseInput from '../ui/BaseInput';
 import BaseSelect from '../ui/BaseSelect';
 
 import { setFilter } from '../../actions/books';
-import { priceFilter } from './priceFilter';
+import priceFilter from './priceFilter';
 
 function Menu({ filters, onSetFilter }) {
   function handleChanges(e) {

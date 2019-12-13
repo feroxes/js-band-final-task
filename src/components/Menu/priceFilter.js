@@ -1,5 +1,4 @@
-// eslint-disable-next-line import/prefer-default-export
-export const priceFilter = [
+const priceFilter = [
   {
     name: 'All',
   },
@@ -19,3 +18,5 @@ export const priceFilter = [
     to: Infinity,
   },
 ];
+
+export default priceFilter;
