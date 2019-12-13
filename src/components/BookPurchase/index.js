@@ -10,7 +10,7 @@ class BookPurchase extends Component {
   constructor() {
     super();
     this.state = {
-      count: '0',
+      count: '1',
       isWarningShown: false,
     };
   }
@@ -41,7 +41,7 @@ class BookPurchase extends Component {
 
   clearState = () => {
     this.setState({
-      count: '0',
+      count: '1',
     });
   };
 
@@ -58,7 +58,14 @@ class BookPurchase extends Component {
     const { currentBook } = this.props;
     const { count, isWarningShown } = this.state;
     return (
-      <div className="w-25 border rounded p-3 h-50 font-weight-bold">
+      <div className="w-25 border rounded p-3 h-50 font-weight-bold position-relative">
+        <img
+          src={require('../../assets/images/bookPurchase/soldOut2.png')}
+          alt="Sold Out"
+          className={`position-absolute ${
+            !this.checkTheNumberOfAvailableBook() ? 'd-flex' : 'd-none'
+          }`}
+        />
         <div className="d-flex justify-content-between mb-2">
           <p>Price, $</p> <p>{currentBook.price}</p>
         </div>
@@ -114,4 +121,7 @@ const mapDispatchToProps = dispatch => ({
   onAddItemToCard: data => dispatch(addItemToCard(data)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(BookPurchase);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(BookPurchase);
