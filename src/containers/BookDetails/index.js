@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 
+import { Link } from 'react-router-dom';
 import BookDetailsInfo from '../../components/BookDetailsInfo';
 import BookPurchase from '../../components/BookPurchase';
 import Modal from '../../components/ui/Modal';
 import BaseButton from '../../components/ui/BaseButton';
 import { clearLocalStorage } from '../../helpers';
-import {Link} from "react-router-dom";
 
 class BookDetails extends Component {
   constructor() {
@@ -89,12 +89,14 @@ class BookDetails extends Component {
                 closeModal={this.closeModal}
               >
                 <p className="text-center my-4">The book has been successfully added to the cart</p>
-                <BaseButton
-                  handleClick={this.toggleModal}
-                  text="Continue shopping"
-                  name="continueShopping"
-                  className="border rounded p-2 text-warning font-weight-bold"
-                />
+                <Link to="/books">
+                  <BaseButton
+                    handleClick={this.toggleModal}
+                    text="Continue shopping"
+                    name="continueShopping"
+                    className="border rounded p-2 text-warning font-weight-bold"
+                  />
+                </Link>
                 <Link to="/card">
                   <BaseButton
                     handleClick={this.toggleModal}
@@ -122,4 +124,7 @@ const mapStateToProps = state => ({
   booksList: state.books.booksList,
 });
 
-export default connect(mapStateToProps, null)(BookDetails);
+export default connect(
+  mapStateToProps,
+  null
+)(BookDetails);
