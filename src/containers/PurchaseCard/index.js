@@ -10,6 +10,7 @@ import PurchaseCardList from '../../components/PurchaseCard/PurchaseCardList';
 import Modal from '../../components/ui/Modal';
 
 import { clearCard } from '../../actions/purchaseCard';
+import clearLocalStorage from '../../helpers';
 
 class PurchaseCard extends Component {
   constructor() {
@@ -27,7 +28,11 @@ class PurchaseCard extends Component {
       onClearCard();
       this.toggleModal();
     } catch (e) {
-      console.error(`${e.name}: ${e.message}`);
+      if (e.response.data.message === 'Unauthorized') {
+        const { history } = this.props;
+        clearLocalStorage();
+        history.push('/signin');
+      } else console.error(`${e.name}: ${e.message}`);
     }
   };
 
@@ -91,6 +96,7 @@ class PurchaseCard extends Component {
 PurchaseCard.propTypes = {
   countOfProducts: PropTypes.number.isRequired,
   basket: PropTypes.instanceOf(Array).isRequired,
+  history: PropTypes.instanceOf(Object).isRequired,
   onClearCard: PropTypes.func.isRequired,
 };
 

@@ -44,10 +44,14 @@ class SignIn extends Component {
     if (isError) return;
     const { username } = this.state;
     const { onSignIn } = this.props;
-    const user = await axios.post('signin', { username });
-    axios.defaults.headers.common.Authorization = `Bearer ${user.data.token}`;
-    onSignIn(user.data);
-    this.setDataToLocalStorage(user.data);
+    try {
+      const user = await axios.post('signin', { username });
+      axios.defaults.headers.common.Authorization = `Bearer ${user.data.token}`;
+      onSignIn(user.data);
+      this.setDataToLocalStorage(user.data);
+    } catch (e) {
+      console.error(`${e.name}: ${e.message}`);
+    }
   };
 
   setDataToLocalStorage = user => {
