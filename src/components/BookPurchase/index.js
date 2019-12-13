@@ -62,6 +62,7 @@ class BookPurchase extends Component {
         <img
           src={require('../../assets/images/bookPurchase/soldOut2.png')}
           alt="Sold Out"
+          style={{ top: '-20px' }}
           className={`position-absolute ${
             !this.checkTheNumberOfAvailableBook() ? 'd-flex' : 'd-none'
           }`}
