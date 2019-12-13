@@ -14,9 +14,9 @@
 
 `npm run build` - build app for production.
 
-`npm run eslint` - check errors with eslint.
+`npm run lint` - check errors with eslint.
 
-`npm run eslint-fix` - fix errors with eslint.
+`npm run lint-fix` - fix errors with eslint.
 
 
 ## Project Structure 
