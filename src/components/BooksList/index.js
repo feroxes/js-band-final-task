@@ -7,6 +7,7 @@ import BookCard from './BookCard';
 
 import { saveBooksList } from '../../actions/books';
 import { priceFilter } from '../Menu/priceFilter';
+import clearLocalStorage from '../../helpers';
 
 class BooksList extends Component {
   async componentDidMount() {
@@ -15,6 +16,11 @@ class BooksList extends Component {
       const booksLists = await axios.get('books');
       onSaveBooksList(booksLists.data);
     } catch (e) {
+      if (e.response.data.message === 'Unauthorized') {
+        const { history } = this.props;
+        clearLocalStorage();
+        history.push('/signin');
+      }
       console.error(`${e.name}: ${e.message}`);
     }
   }
@@ -57,6 +63,7 @@ BooksList.propTypes = {
   booksList: PropTypes.instanceOf(Array).isRequired,
   onSaveBooksList: PropTypes.func.isRequired,
   filters: PropTypes.instanceOf(Object).isRequired,
+  history: PropTypes.instanceOf(Object).isRequired,
 };
 
 const mapStateToProps = state => ({

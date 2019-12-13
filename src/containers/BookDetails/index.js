@@ -7,6 +7,7 @@ import BookDetailsInfo from '../../components/BookDetailsInfo';
 import BookPurchase from '../../components/BookPurchase';
 import Modal from '../../components/ui/Modal';
 import BaseButton from '../../components/ui/BaseButton';
+import clearLocalStorage from '../../helpers';
 
 class BookDetails extends Component {
   constructor() {
@@ -37,7 +38,12 @@ class BookDetails extends Component {
       this.setState({ currentBook: currentBook.data });
     } catch (e) {
       const { history } = this.props;
-      history.push('/not-found');
+      if (e.response.status === 404) {
+        history.push('/not-found');
+      } else if (e.response.data.message === 'Unauthorized') {
+        clearLocalStorage();
+        history.push('/signin');
+      } else console.error(`${e.name}: ${e.message}`);
     }
   };
 

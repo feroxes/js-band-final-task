@@ -7,17 +7,13 @@ import BasketIcon from '../ui/BasketIcon';
 import BaseButton from '../ui/BaseButton';
 
 import { signOut } from '../../actions/user';
+import clearLocalStorage from '../../helpers';
 
 class Header extends Component {
   logOut = () => {
     const { onSignOut } = this.props;
     onSignOut();
-    this.clearLocalStorage();
-  };
-
-  clearLocalStorage = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('username');
+    clearLocalStorage();
   };
 
   render() {
