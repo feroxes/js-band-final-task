@@ -10,7 +10,7 @@ import PurchaseCardList from '../../components/PurchaseCard/PurchaseCardList';
 import Modal from '../../components/ui/Modal';
 
 import { clearCard } from '../../actions/purchaseCard';
-import clearLocalStorage from '../../helpers';
+import { clearLocalStorage } from '../../helpers';
 
 class PurchaseCard extends Component {
   constructor() {
@@ -84,7 +84,11 @@ class PurchaseCard extends Component {
           <PurchaseCardEmptyCard />
         )}
         {isModalShown && (
-          <Modal modalTitle="Thank you for your order!" handleKeyUp={this.handleKeyUp}>
+          <Modal
+            modalTitle="Thank you for your order!"
+            handleKeyUp={this.handleKeyUp}
+            closeModal={this.closeModal}
+          >
             <p className="text-center my-4">The order was successfully sent.</p>
             <Link to="/books">
               <BaseButton
