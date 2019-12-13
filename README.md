@@ -24,6 +24,10 @@
 ```
 .
 ├── src
+|   ├── actions
+|   |    ├── books.js
+|   |    ├── purchaseCard.js
+|   |    ├── user.js
 |   ├── assets
 |   |    ├── fonts
 |   |    ├── images
@@ -35,6 +39,30 @@
 |   |    |    |    └── vars.scss
 |   |    |    └── main.css
 |   ├── components
+|   |    ├── BookDetailsInfo
+|   |    |    ├── index.js
+|   |    ├── BookPurchase
+|   |    |    ├── index.js
+|   |    ├── BooksList
+|   |    |    ├── BookCard
+|   |    |    |    ├── index.js
+|   |    |    ├── index.js
+|   |    ├── Footer
+|   |    |    ├── index.js
+|   |    ├── Header
+|   |    |    ├── index.js
+|   |    ├── Menu
+|   |    |    ├── index.js
+|   |    |    ├── priceFilter.js
+|   |    ├── PurchaseCard
+|   |    |    ├── PurchaseCardEmptyCard
+|   |    |    |    ├── index.js
+|   |    |    ├── PurchaseCardList
+|   |    |    |    ├── BasketItem
+|   |    |    |    |    ├── index.js
+|   |    |    |    ├── index.js
+|   |    ├── Spinner
+|   |    |    ├── index.js
 |   |    ├── ui
 |   |    |    ├── BaseButton
 |   |    |    |    ├── index.js
@@ -42,7 +70,35 @@
 |   |    |    |    ├── index.js
 |   |    |    ├── BaseSelect
 |   |    |    |    ├── index.js
+|   |    |    ├── BasketIcon
+|   |    |    |    ├── index.js
+|   |    |    ├── Modal
+|   |    |    |    ├── index.js
+|   |    |    |    ├── Modal.scss
 |   ├── containers
+|   |    ├── BookDetails
+|   |    |    ├── index.js
+|   |    ├── Books
+|   |    |    ├── index.js
+|   |    ├── NotFound
+|   |    |    ├── index.js
+|   |    ├── PurchaseCard
+|   |    |    ├── index.js
+|   |    ├── SignIn
+|   |    |    ├── index.js
+|   |    |    ├── signIn.scss
+|   ├── helpers
+|   |    ├── index.js
+|   ├── reducers
+|   |    ├── books.js
+|   |    ├── index.js
+|   |    ├── purchaseCard.js
+|   |    ├── user.js
+|   ├── routes
+|   |    ├── PrivateRoute
+|   |    |    ├── index.js
+|   |    ├── PublicRoute
+|   |    |    ├── index.js
 |   ├── App.js
 |   └── index.js
 ```
