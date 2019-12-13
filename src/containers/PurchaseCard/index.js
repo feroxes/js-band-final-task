@@ -56,6 +56,14 @@ class PurchaseCard extends Component {
     });
   };
 
+  closeModal = () => {
+    this.setState({ isModalShown: false });
+  };
+
+  handleKeyUp = e => {
+    if (e.keyCode === 27 || e.keyCode === 13) this.closeModal();
+  };
+
   render() {
     const { isModalShown } = this.state;
     const { countOfProducts, basket } = this.props;
@@ -76,7 +84,7 @@ class PurchaseCard extends Component {
           <PurchaseCardEmptyCard />
         )}
         {isModalShown && (
-          <Modal modalTitle="Thank you for your order!">
+          <Modal modalTitle="Thank you for your order!" handleKeyUp={this.handleKeyUp}>
             <p className="text-center my-4">The order was successfully sent.</p>
             <Link to="/books">
               <BaseButton
