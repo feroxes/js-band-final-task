@@ -7,7 +7,7 @@ import BookDetailsInfo from '../../components/BookDetailsInfo';
 import BookPurchase from '../../components/BookPurchase';
 import Modal from '../../components/ui/Modal';
 import BaseButton from '../../components/ui/BaseButton';
-import clearLocalStorage from '../../helpers';
+import { clearLocalStorage } from '../../helpers';
 
 class BookDetails extends Component {
   constructor() {
@@ -65,6 +65,14 @@ class BookDetails extends Component {
     });
   };
 
+  closeModal = () => {
+    this.setState({ isModalShown: false });
+  };
+
+  handleKeyUp = e => {
+    if (e.keyCode === 27 || e.keyCode === 13) this.closeModal();
+  };
+
   render() {
     const { currentBook, isModalShown } = this.state;
     return (
@@ -74,7 +82,11 @@ class BookDetails extends Component {
             <BookDetailsInfo currentBook={currentBook} />
             <BookPurchase currentBook={currentBook} toggleModal={this.toggleModal} />
             {isModalShown && (
-              <Modal modalTitle="Thank you for your order!">
+              <Modal
+                modalTitle="Thank you for your order!"
+                handleKeyUp={this.handleKeyUp}
+                closeModal={this.closeModal}
+              >
                 <p className="text-center my-4">The book has been successfully added to the cart</p>
                 <BaseButton
                   handleClick={this.toggleModal}

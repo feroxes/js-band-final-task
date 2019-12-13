@@ -7,7 +7,7 @@ import BookCard from './BookCard';
 
 import { saveBooksList } from '../../actions/books';
 import { priceFilter } from '../Menu/priceFilter';
-import clearLocalStorage from '../../helpers';
+import { clearLocalStorage } from '../../helpers';
 
 class BooksList extends Component {
   async componentDidMount() {
