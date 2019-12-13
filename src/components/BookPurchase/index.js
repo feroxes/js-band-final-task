@@ -114,7 +114,4 @@ const mapDispatchToProps = dispatch => ({
   onAddItemToCard: data => dispatch(addItemToCard(data)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(BookPurchase);
+export default connect(mapStateToProps, mapDispatchToProps)(BookPurchase);

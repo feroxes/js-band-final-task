@@ -121,7 +121,4 @@ const mapDispatchToProps = dispatch => ({
   onClearCard: () => dispatch(clearCard()),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(PurchaseCard);
+export default connect(mapStateToProps, mapDispatchToProps)(PurchaseCard);

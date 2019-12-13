@@ -82,7 +82,4 @@ const mapDispatchToProps = dispatch => ({
   onSetLoading: data => dispatch(setLoading(data)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
