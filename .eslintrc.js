@@ -45,6 +45,7 @@ module.exports = {
         "jsx-a11y/click-events-have-key-events": 0,
         "jsx-a11y/no-noninteractive-tabindex": 0,
         "no-shadow": 0,
+        "no-plusplus": 0,
     },
     "plugins": ["prettier"]
 };
