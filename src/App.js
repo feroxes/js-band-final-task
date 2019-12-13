@@ -11,6 +11,7 @@ import BookDetails from './containers/BookDetails';
 import PurchaseCard from './containers/PurchaseCard';
 import NotFound from './containers/NotFound';
 import Spinner from './components/Spinner';
+import Footer from './components/Footer';
 
 import { signIn, setLoading } from './actions/user';
 
@@ -41,7 +42,7 @@ class App extends Component {
   render() {
     const { isAuthenticated, isLoading } = this.props;
     return (
-      <div className="position-relative">
+      <div className="position-relative min-vh-100">
         {isAuthenticated && <Header />}
         {isLoading !== null && !isLoading ? (
           <Switch>
@@ -55,6 +56,7 @@ class App extends Component {
         ) : (
           <Spinner />
         )}
+        <Footer />
       </div>
     );
   }
