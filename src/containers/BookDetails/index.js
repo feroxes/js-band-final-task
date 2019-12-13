@@ -113,4 +113,7 @@ const mapStateToProps = state => ({
   booksList: state.books.booksList,
 });
 
-export default connect(mapStateToProps, null)(BookDetails);
+export default connect(
+  mapStateToProps,
+  null
+)(BookDetails);
